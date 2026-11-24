@@ -1,0 +1,15 @@
+{
+  "tasks": [
+    { "id": 1, "projetId": 1, "titre": "Créer les modèles", "description": "Modèles Tache, Projet et Commentaire", "priorite": "haute", "statut": "termine", "echeance": "2026-11-25" },
+    { "id": 2, "projetId": 1, "titre": "Créer TaskService", "description": "CRUD des tâches via HttpClient", "priorite": "haute", "statut": "en-cours" },
+    { "id": 3, "projetId": 1, "titre": "Créer ProjectService", "description": "Lecture, ajout et suppression de projet", "priorite": "moyenne", "statut": "a-faire" },
+    { "id": 4, "projetId": 1, "titre": "Tester les services", "description": "3 tests pour la partie 1", "priorite": "moyenne", "statut": "a-faire", "echeance": "2026-11-26" },
+    { "id": 5, "projetId": 1, "titre": "Ouvrir la Pull Request", "description": "PR feature/services-donnees vers develop", "priorite": "basse", "statut": "a-faire" }
+  ],
+  "projects": [
+    { "id": 1, "nom": "Kanban", "description": "Tableau Kanban en équipe - Angular 19" }
+  ],
+  "commentaires": [
+    { "id": 1, "tacheId": 2, "texte": "TaskService en cours, d'abord getTaches et changerStatut.", "date": "2026-11-24" }
+  ]
+}
