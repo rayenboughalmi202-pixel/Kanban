@@ -1,0 +1,36 @@
+<h1>Tableau Kanban</h1>
+
+<div class="board">
+  <section class="colonne">
+    <h2>À faire</h2>
+    @for (tache of aFaire(); track tache.id) {
+      <article class="carte">
+        <h3>{{ tache.titre }}</h3>
+        <p>{{ tache.description }}</p>
+        <span>Priorité : {{ tache.priorite }}</span>
+      </article>
+    }
+  </section>
+
+  <section class="colonne">
+    <h2>En cours</h2>
+    @for (tache of enCours(); track tache.id) {
+      <article class="carte">
+        <h3>{{ tache.titre }}</h3>
+        <p>{{ tache.description }}</p>
+        <span>Priorité : {{ tache.priorite }}</span>
+      </article>
+    }
+  </section>
+
+  <section class="colonne">
+    <h2>Terminé</h2>
+    @for (tache of termine(); track tache.id) {
+      <article class="carte">
+        <h3>{{ tache.titre }}</h3>
+        <p>{{ tache.description }}</p>
+        <span>Priorité : {{ tache.priorite }}</span>
+      </article>
+    }
+  </section>
+</div>
