@@ -57,3 +57,26 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Partie 2 — Tableau & drag-drop (Rayen Boughalmi)
+
+Page `/tableau` : un tableau Kanban avec 3 colonnes (À faire, En cours, Terminé).
+
+### Fonctionnalités
+- Affichage des tâches en 3 colonnes, avec des fausses données en attendant le service (Partie 1).
+- Drag-drop (Angular CDK) : glisser une carte d'une colonne à l'autre change son statut.
+- Directive `appPriorite` : la couleur de la carte change selon la priorité (critique rouge, haute orange, moyenne jaune, basse verte).
+- Filtres : recherche par titre + filtre par priorité.
+- Ajout rapide : une tâche s'ajoute dans la colonne « À faire ».
+
+### Fichiers
+- `src/app/features/tableau/tableau.component.ts` (+ `.html`, `.css`)
+- `src/app/features/tableau/priorite.directive.ts`
+
+### Tests
+- `tableau.component.spec.ts` : création, filtre par texte, changement de statut après un drop.
+- `priorite.directive.spec.ts` : couleur d'une tâche critique.
+- Lancer les tests : `npx ng test --watch=false`
+
+### Lancer le projet
+- `npm install`
+- `npm start` puis ouvrir http://localhost:4200
