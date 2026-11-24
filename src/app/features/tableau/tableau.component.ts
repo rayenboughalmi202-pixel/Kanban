@@ -1,4 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 
 export interface Tache {
   id: number;
@@ -12,7 +13,7 @@ export interface Tache {
 @Component({
   selector: 'app-tableau',
   standalone: true,
-  imports: [],
+  imports: [DragDropModule],
   templateUrl: './tableau.component.html',
   styleUrl: './tableau.component.css',
 })
@@ -28,4 +29,15 @@ export class TableauComponent {
   aFaire = computed(() => this.taches().filter((t) => t.statut === 'a-faire'));
   enCours = computed(() => this.taches().filter((t) => t.statut === 'en-cours'));
   termine = computed(() => this.taches().filter((t) => t.statut === 'termine'));
+
+  drop(event: CdkDragDrop<Tache[]>) {
+    if (event.previousContainer === event.container) {
+      return;
+    }
+    const tache = event.item.data as Tache;
+    const nouveauStatut = event.container.id as Tache['statut'];
+    this.taches.update((liste) =>
+      liste.map((t) => (t.id === tache.id ? { ...t, statut: nouveauStatut } : t))
+    );
+  }
 }

@@ -1,10 +1,10 @@
 <h1>Tableau Kanban</h1>
 
 <div class="board">
-  <section class="colonne">
+  <section class="colonne" cdkDropList id="a-faire" [cdkDropListData]="aFaire()" [cdkDropListConnectedTo]="['en-cours', 'termine']" (cdkDropListDropped)="drop($event)">
     <h2>À faire</h2>
     @for (tache of aFaire(); track tache.id) {
-      <article class="carte">
+      <article class="carte" cdkDrag [cdkDragData]="tache">
         <h3>{{ tache.titre }}</h3>
         <p>{{ tache.description }}</p>
         <span>Priorité : {{ tache.priorite }}</span>
@@ -12,10 +12,10 @@
     }
   </section>
 
-  <section class="colonne">
+  <section class="colonne" cdkDropList id="en-cours" [cdkDropListData]="enCours()" [cdkDropListConnectedTo]="['a-faire', 'termine']" (cdkDropListDropped)="drop($event)">
     <h2>En cours</h2>
     @for (tache of enCours(); track tache.id) {
-      <article class="carte">
+      <article class="carte" cdkDrag [cdkDragData]="tache">
         <h3>{{ tache.titre }}</h3>
         <p>{{ tache.description }}</p>
         <span>Priorité : {{ tache.priorite }}</span>
@@ -23,10 +23,10 @@
     }
   </section>
 
-  <section class="colonne">
+  <section class="colonne" cdkDropList id="termine" [cdkDropListData]="termine()" [cdkDropListConnectedTo]="['a-faire', 'en-cours']" (cdkDropListDropped)="drop($event)">
     <h2>Terminé</h2>
     @for (tache of termine(); track tache.id) {
-      <article class="carte">
+      <article class="carte" cdkDrag [cdkDragData]="tache">
         <h3>{{ tache.titre }}</h3>
         <p>{{ tache.description }}</p>
         <span>Priorité : {{ tache.priorite }}</span>
