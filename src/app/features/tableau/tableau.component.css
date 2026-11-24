@@ -15,11 +15,26 @@
   border-radius: 8px;
   padding: 12px;
   margin-bottom: 10px;
-}
-.carte {
-  background: white;
-  border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 10px;
   cursor: grab;
+}
+
+.barre {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.barre input,
+.barre select,
+.barre button {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.barre button {
+  background: #1976d2;
+  color: white;
+  border: none;
+  cursor: pointer;
 }

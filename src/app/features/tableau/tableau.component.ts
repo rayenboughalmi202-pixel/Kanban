@@ -27,9 +27,41 @@ export class TableauComponent {
     { id: 5, titre: 'Créer la directive appPriorite', description: 'Couleur selon la priorité', priorite: 'moyenne', statut: 'a-faire' },
   ]);
 
-  aFaire = computed(() => this.taches().filter((t) => t.statut === 'a-faire'));
-  enCours = computed(() => this.taches().filter((t) => t.statut === 'en-cours'));
-  termine = computed(() => this.taches().filter((t) => t.statut === 'termine'));
+  filtreTexte = signal('');
+  filtrePriorite = signal('toutes');
+  nouveauTitre = signal('');
+  nouvellePriorite = signal('moyenne');
+
+  tachesFiltrees = computed(() => {
+    const texte = this.filtreTexte().toLowerCase();
+    const priorite = this.filtrePriorite();
+    return this.taches().filter((t) => {
+      const okTexte = t.titre.toLowerCase().includes(texte);
+      const okPriorite = priorite === 'toutes' || t.priorite === priorite;
+      return okTexte && okPriorite;
+    });
+  });
+
+  aFaire = computed(() => this.tachesFiltrees().filter((t) => t.statut === 'a-faire'));
+  enCours = computed(() => this.tachesFiltrees().filter((t) => t.statut === 'en-cours'));
+  termine = computed(() => this.tachesFiltrees().filter((t) => t.statut === 'termine'));
+
+  ajouterTache() {
+    const titre = this.nouveauTitre().trim();
+    if (!titre) {
+      return;
+    }
+    const prochainId = Math.max(...this.taches().map((t) => t.id)) + 1;
+    const nouvelle: Tache = {
+      id: prochainId,
+      titre,
+      description: '',
+      priorite: this.nouvellePriorite() as Tache['priorite'],
+      statut: 'a-faire',
+    };
+    this.taches.update((liste) => [...liste, nouvelle]);
+    this.nouveauTitre.set('');
+  }
 
   drop(event: CdkDragDrop<Tache[]>) {
     if (event.previousContainer === event.container) {
