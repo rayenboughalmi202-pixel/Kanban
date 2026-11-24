@@ -1,5 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
+import { PrioriteDirective } from './priorite.directive';
 
 export interface Tache {
   id: number;
@@ -13,7 +14,7 @@ export interface Tache {
 @Component({
   selector: 'app-tableau',
   standalone: true,
-  imports: [DragDropModule],
+  imports: [DragDropModule, PrioriteDirective],
   templateUrl: './tableau.component.html',
   styleUrl: './tableau.component.css',
 })
