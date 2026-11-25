@@ -1,0 +1,58 @@
+<h1>Tableau Kanban</h1>
+
+<div class="barre">
+  <input #recherche type="text" placeholder="Rechercher une tâche..." (input)="filtreTexte.set(recherche.value)" />
+  <select #selFiltre (change)="filtrePriorite.set(selFiltre.value)">
+    <option value="toutes">Toutes les priorités</option>
+    <option value="basse">Basse</option>
+    <option value="moyenne">Moyenne</option>
+    <option value="haute">Haute</option>
+    <option value="critique">Critique</option>
+  </select>
+</div>
+
+<div class="barre">
+  <input #nouveau type="text" placeholder="Nouvelle tâche..." [value]="nouveauTitre()" (input)="nouveauTitre.set(nouveau.value)" />
+  <select #selNouveau (change)="nouvellePriorite.set(selNouveau.value)">
+    <option value="basse">Basse</option>
+    <option value="moyenne" selected>Moyenne</option>
+    <option value="haute">Haute</option>
+    <option value="critique">Critique</option>
+  </select>
+  <button (click)="ajouterTache()">Ajouter</button>
+</div>
+
+<div class="board">
+  <section class="colonne" cdkDropList id="a-faire" [cdkDropListData]="aFaire()" [cdkDropListConnectedTo]="['en-cours', 'termine']" (cdkDropListDropped)="drop($event)">
+    <h2>À faire ({{ aFaire().length }})</h2>
+    @for (tache of aFaire(); track tache.id) {
+      <article class="carte" cdkDrag [cdkDragData]="tache">
+        <h3>{{ tache.titre }}</h3>
+        <p>{{ tache.description }}</p>
+        <span class="badge" [appPriorite]="tache.priorite">{{ tache.priorite }}</span>
+      </article>
+    }
+  </section>
+
+  <section class="colonne" cdkDropList id="en-cours" [cdkDropListData]="enCours()" [cdkDropListConnectedTo]="['a-faire', 'termine']" (cdkDropListDropped)="drop($event)">
+    <h2>En cours ({{ enCours().length }})</h2>
+    @for (tache of enCours(); track tache.id) {
+      <article class="carte" cdkDrag [cdkDragData]="tache">
+        <h3>{{ tache.titre }}</h3>
+        <p>{{ tache.description }}</p>
+        <span class="badge" [appPriorite]="tache.priorite">{{ tache.priorite }}</span>
+      </article>
+    }
+  </section>
+
+  <section class="colonne" cdkDropList id="termine" [cdkDropListData]="termine()" [cdkDropListConnectedTo]="['a-faire', 'en-cours']" (cdkDropListDropped)="drop($event)">
+    <h2>Terminé ({{ termine().length }})</h2>
+    @for (tache of termine(); track tache.id) {
+      <article class="carte" cdkDrag [cdkDragData]="tache">
+        <h3>{{ tache.titre }}</h3>
+        <p>{{ tache.description }}</p>
+        <span class="badge" [appPriorite]="tache.priorite">{{ tache.priorite }}</span>
+      </article>
+    }
+  </section>
+</div>
